@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "declaration": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "useUnknownInCatchVariables": true,
+    "lib": [
+      "DOM",
+      "ES2017"
+    ],
+    "paths": {
+      "forma-core": [
+        "./packages/forma-core/src"
+      ],
+      "forma-react": [
+        "./packages/forma-react/src"
+      ],
+    }
+  }
+}

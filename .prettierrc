@@ -1,0 +1,10 @@
+{
+    "editorconfig": true,
+    "printWidth": 120,
+    "semi": true,
+    "trailingComma": "all",
+    "singleQuote": true,
+    "importOrder": ["^[../../../]", "^[../../]", "^[../]", "^[./]"],
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true
+}

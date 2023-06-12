@@ -1,0 +1,35 @@
+{
+  "name": "forma-core",
+  "version": "0.0.1",
+  "description": "",
+  "author": "Dmitry Baranov (fadedimon@gmail.com)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fadedimon/forma.git",
+    "directory": "packages/forma-core"
+  },
+  "license": "MIT",
+  "type": "module",
+  "source": "src/index.ts",
+  "types": "./lib/esm/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "lib"
+  ],
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./lib/cjs/index.d.ts",
+        "default": "./lib/cjs/index.js"
+      },
+      "import": {
+        "types": "./lib/esm/index.d.ts",
+        "default": "./lib/esm/index.js"
+      }
+    }
+  },
+  "scripts": {
+    "clean": "rm -rf ./lib",
+    "build:types": "tsc --project tsconfig.types.json"
+  }
+}

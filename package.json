@@ -1,0 +1,26 @@
+{
+  "name": "forma",
+  "version": "0.0.1",
+  "description": "",
+  "author": "Dmitry Baranov (fadedimon@gmail.com)",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "examples"
+  ],
+  "scripts": {
+    "clean": "npm run clean --workspaces",
+    "build": "npm run clean && rollup -c",
+    "start": "cd examples && npm start"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^11.1.1",
+    "@trivago/prettier-plugin-sort-imports": "^4.1.1",
+    "prettier": "^2.8.8",
+    "process": "^0.11.10",
+    "rollup": "^3.25.1",
+    "rollup-plugin-node-externals": "^6.1.1",
+    "typescript": "^5.1.3"
+  }
+}
