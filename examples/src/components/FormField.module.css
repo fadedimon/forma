@@ -1,0 +1,22 @@
+.root {
+    display: block;
+}
+
+.root + .root {
+    margin-top: 16px;
+}
+
+.label {
+    font-size: 15px;
+    display: block;
+    margin-bottom: 3px;
+} 
+
+.root:has([required]) > .label {
+    font-weight: bold;
+}
+
+.root:has([required]) > .label::after {
+    content: " (required)";
+    font-weight: 400;
+}

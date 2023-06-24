@@ -1,0 +1,93 @@
+.form {
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 16px;
+    padding: 16px;
+}
+
+.formRow + .formRow {
+    margin-top: 4px;
+}
+
+.fieldSet {
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 8px;
+}
+
+.delimiter {
+    margin: 16px -16px;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-width: 1px 0 0;
+}
+
+.input {
+    height: 32px;
+    box-sizing: border-box;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 3px;
+    padding: 0 8px;
+}
+
+.input + .input {
+    margin-left: 4px;
+}
+
+
+.textarea {
+    min-height: 100px;
+    box-sizing: border-box;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 3px;
+    padding: 8px;
+}
+
+.removeButton {
+    width: 32px;
+    height: 32px;
+    box-sizing: border-box;
+    background: white;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    padding: 0 8px;
+    cursor: pointer;
+}
+
+.removeButton:hover {
+    border-color: rgba(0,0,0,0.1);
+}
+
+.input + .removeButton {
+    margin-left: 4px;
+}
+
+.addButton {
+    height: 32px;
+    box-sizing: border-box;
+    background: #f5f5f5;
+    border: 1px solid rgba(0,0,0,0.05);
+    border-radius: 8px;
+    padding: 0 8px;
+    margin-top: 8px;
+    cursor: pointer;
+}
+
+.addButton::before {
+    content: '➕';
+    display: inline-block;
+    margin-right: 4px;
+}
+
+.addButton:hover {
+    border-color: rgba(0,0,0,0.2);
+}
+
+.submitButton {
+    height: 48px;
+    box-sizing: border-box;
+    background: #8bc34a;
+    border-radius: 16px;
+    border: 0;
+    padding: 0 16px;
+    cursor: pointer;
+}

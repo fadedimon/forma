@@ -2,36 +2,42 @@ import { Forma, FormaList } from 'forma-react';
 import React from 'react';
 
 import { FormField } from '../components/FormField';
+import * as styles from './Form.module.css';
 
 export const PlainForm: React.FC = () => (
     <Forma
+        className={styles.form}
         onSubmit={(e) => {
             e.preventDefault();
             console.log('Form submitted');
         }}
     >
         <FormField title="First name" htmlFor="firstName">
-            <input id="firstName" name="firstName" placeholder="First name" required />
+            <input id="firstName" name="firstName" placeholder="First name" className={styles.input} required />
         </FormField>
 
         <FormField title="Last name" htmlFor="firstName">
-            <input name="lastName" placeholder="Second name" required />
+            <input name="lastName" placeholder="Second name" className={styles.input} required />
         </FormField>
 
         <FormField title="Tags">
-            <FormaList name="tags" defaultItems={[]} getItemId={() => ''}>
+            <FormaList name="tags" defaultItems={[]} emplyListPolicy="at-least-one" getItemId={() => ''}>
                 {(list) => (
                     <>
                         {list.items.map((item) => (
-                            <div key={item.id}>
-                                <input name="tags[]" placeholder="Tag" />
-                                <button type="button" onClick={() => list.remove(item.id)}>
-                                    remove
+                            <div key={item.id} className={styles.formRow}>
+                                <input name="tags[]" placeholder="Tag" className={styles.input} />
+                                <button
+                                    type="button"
+                                    className={styles.removeButton}
+                                    onClick={() => list.remove(item.id)}
+                                >
+                                    🗑
                                 </button>
                             </div>
                         ))}
 
-                        <button type="button" onClick={list.add}>
+                        <button type="button" className={styles.addButton} onClick={list.add}>
                             Add tag
                         </button>
                     </>
@@ -40,23 +46,29 @@ export const PlainForm: React.FC = () => (
         </FormField>
 
         <FormField title="Locations">
-            <FormaList name="locations" defaultItems={[]} getItemId={() => ''}>
+            <FormaList name="locations" defaultItems={[]} emplyListPolicy="at-least-one" getItemId={() => ''}>
                 {(list) => (
                     <>
                         {list.items.map((item, i) => (
-                            <fieldset key={item.id} name="locations[]" id={item.id}>
+                            <fieldset key={item.id} name="locations[]" id={item.id} className={styles.fieldSet}>
                                 <legend>Location #{i + 1}</legend>
-                                <input name="city" placeholder="City" required />
-                                <br />
-                                <input name="country" placeholder="Country" required />
-                                <br />
-                                <button type="button" onClick={() => list.remove(item.id)}>
-                                    remove
-                                </button>
+                                <div className={styles.formRow}>
+                                    <input name="city" placeholder="City" className={styles.input} required />
+                                    <button
+                                        type="button"
+                                        className={styles.removeButton}
+                                        onClick={() => list.remove(item.id)}
+                                    >
+                                        🗑
+                                    </button>
+                                </div>
+                                <div className={styles.formRow}>
+                                    <input name="country" placeholder="Country" className={styles.input} required />
+                                </div>
                             </fieldset>
                         ))}
 
-                        <button type="button" onClick={list.add}>
+                        <button type="button" className={styles.addButton} onClick={list.add}>
                             Add location
                         </button>
                     </>
@@ -65,11 +77,19 @@ export const PlainForm: React.FC = () => (
         </FormField>
 
         <FormField title="About you" htmlFor="about_you">
-            <textarea id="about_you" name="about_you" placeholder="Please tell us about yourself" required />
+            <textarea
+                id="about_you"
+                name="about_you"
+                placeholder="Please tell us about yourself"
+                className={styles.textarea}
+                required
+            />
         </FormField>
 
-        <hr />
+        <hr className={styles.delimiter} />
 
-        <button type="submit">Submit (aka Print json)</button>
+        <button type="submit" className={styles.submitButton}>
+            Submit (aka Print json)
+        </button>
     </Forma>
 );
