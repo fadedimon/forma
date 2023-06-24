@@ -13,6 +13,7 @@
     "forma-react": "file:../packages/forma-react/src",
     "parcel": "^2.9.2",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "react-json-view": "^1.21.3"
   }
 }
