@@ -4,6 +4,7 @@
     "jsx": "react"
   },
   "include": [
-    "src"
+    "src",
+    "types.d.ts"
   ]
 }
