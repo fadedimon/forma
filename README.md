@@ -7,7 +7,7 @@ Please check examples to find our more.
 
 ## Examples
 
-If you need plain json like `{ title: string, name: string }`, we can have this html:
+If we need a plain json like `{ title: string, name: string }`, we can have it with a simple form:
 
 ```html
 <form>
@@ -16,46 +16,49 @@ If you need plain json like `{ title: string, name: string }`, we can have this 
 </form>
 ```
 
-Probably, we don't need anything to maintain forms like this. But what if we need something more complex? For example, title and name should be nested in some property, some values should be nested, and some should be organised as list of objects?
+Probably, we don't even need anything to maintain forms like this.
 
-Take a look at the following json interface (it's typescript-ish):
+But what if we need something more complex? For example, title and name should be nested in property user, some values should be nested, and some should be organised as list of objects? Take a look at the following interface (it's typescript-ish):
 
 ```typescript
 {
-  user: {
-    title: string;
-    name: string;
+  "user": {
+    "title": string;
+    "name": string;
   };
-  skills: string[];
-  locations: {
-      city: string;
-      country: string;
+  "tags": string[];
+  "locations": {
+      "city": string;
+      "country": string;
   }[];
 }
 ```
 
-Forma allows us to express this "json structure" in the following manner:
+Forma allows us to express this "json structure" with the following html:
 
 ```html
 <form>
-  <fieldset name="applicant">
+  <fieldset name="user">
     <input name="title" />
     <input name="name" />
   </fieldset>
 
-  <input name="skills[]" />
-  <button type="button">Add skill</button>
+  <input name="tags[]" />
+  <input name="tags[]" />
 
   <fieldset name="locations[]">
     <input name="city" />
     <input name="country" />
   </fieldset>
-  <button type="button">Add location</button>
+  <fieldset name="locations[]">
+    <input name="city" />
+    <input name="country" />
+  </fieldset>
 </form>
 ```
 
-Where `fieldset` elements are used to collect values into objects, and name property ending with `[]` is pointing that this value or objects should be represented as lists.
-When user clicks on "Add skill" button, form should render one more `<input name="skills[]" />` element and its value will be added to `skills` property. Same is valid for `<fieldset name="locations[]" />`
+Where `fieldset` elements are used to collect values into objects, and name property ending with `[]` is pointing, that values or objects should be represented as lists.
+Addding more items with name `<input name="tags[]" />` will add another value to the list. Same goes to `<fieldset name="locations[]" />`.
 
 ## Quick start
 
@@ -65,15 +68,11 @@ npm install forma-react --save
 
 ## Packages
 
-### `forma-core`
-
-todo
-
 ### `forma-react`
 
 Contains:
 
-#### `Forma`
+#### Component `Forma`
 
 Usage:
 
@@ -81,11 +80,11 @@ Usage:
 import { Forma } from 'forma-react';
 
 export const YourForm = (props) => {
-  return <Forma onSubmit={props.onSubmit}>...</Forma>;
+  return <Forma onSubmit={(e) => console.log(e.json)}>...</Forma>;
 };
 ```
 
-#### `FormaList`
+#### Component `FormaList`
 
 Is a helper component for building lists in form.
 
@@ -102,15 +101,15 @@ export const YourForm = (props) => {
         {(locations) => (
           <>
             {locations.items.map((item) => (
-              <fieldset key={item.id} name="locations[]" id={item.removed ? undefined : item.id}>
+              <fieldset key={item.id} name="locations[]" id={item.id}>
                 <input name="city" defaultValue={item.data.city} />
                 <input name="country" defaultValue={item.data.country} />
-                <button type="button" onClick={() => locations.removeItemCompletely(item.id)}>
+                <button type="button" onClick={() => locations.remove(item.id)}>
                   Remove location
                 </button>
               </fieldset>
             ))}
-            <button type="button" onClick={locations.addItem}>
+            <button type="button" onClick={locations.add}>
               Add location
             </button>
           </>
@@ -123,9 +122,10 @@ export const YourForm = (props) => {
 
 **FormaList props**
 
-| Prop name      | Interface                                           | Description                                                                                                                                     |
-| -------------- | --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| `name`         | `string`                                            | Name of the list. It will be used for temp ids generation for new list elements. Like `locations~new~0`, where `locations` is the provided name |
-| `defaultItems` | `T[]`                                               | List of current items in your data to populate this list                                                                                        |
-| `getItemId`    | `(item: T) => string;`                              | Function that recieves item from `defaultItems` in first argument and returns its id                                                            |
-| `children`     | `(list: FormListProp<T>) => ReactElement<any, any>` | Render function that recieves item from `defaultItems` in first argument and returns its id                                                     |
+| Prop name         | Interface                                           | Description                                                                                                                                     |
+| ----------------- | --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`            | `string`                                            | Name of the list. It will be used for temp ids generation for new list elements. Like `locations~new~0`, where `locations` is the provided name |
+| `defaultItems`    | `T[]`                                               | List of current items in your data to populate this list                                                                                        |
+| `getItemId`       | `(item: T) => string;`                              | Function that recieves item from `defaultItems` in first argument and returns its id                                                            |
+| `emplyListPolicy` | `none`, `at-least-one`                              | Tells how to handle empty list. `none` — return empty list. `at-least-one` — return at least one item. Default is `none`                        |
+| `children`        | `(list: FormListProp<T>) => ReactElement<any, any>` | Render function that recieves item from `defaultItems` in first argument and returns its id                                                     |

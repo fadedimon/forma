@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './FormField.css';
+import * as styles from './FormField.module.css';
 
 interface FormFieldProps {
     title: string;
@@ -8,8 +8,8 @@ interface FormFieldProps {
 }
 
 export const FormField: React.FC<React.PropsWithChildren<FormFieldProps>> = (props) => (
-    <div className="FormField">
-        <div className="FormField-label">
+    <div className={styles.root}>
+        <div className={styles.label}>
             <label htmlFor={props.htmlFor}>{props.title}</label>
         </div>
         {props.children}
