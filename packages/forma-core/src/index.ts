@@ -1,5 +1,1 @@
-console.log('hello!');
-
-export interface Hello {
-    //
-}
+export { buildFormJson } from './buildFormJson';

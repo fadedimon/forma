@@ -1,53 +1,37 @@
+import { buildFormJson } from 'forma-core';
 import React from 'react';
 
-interface FormaFormEvent extends React.FormEvent<HTMLFormElement> {
+interface PatchedFormEvent extends React.ChangeEvent<HTMLFormElement> {
     json: Record<string, unknown>;
-    isValid: boolean;
 }
 
 interface FormaProps extends React.HTMLAttributes<HTMLFormElement> {
-    onFormDataChange?(e: FormaFormEvent): void;
+    onChange?(e: PatchedFormEvent): unknown;
+    onSubmit?(e: PatchedFormEvent): unknown;
     preventSubmit?: boolean;
 }
 
 export const Forma: React.FC<FormaProps> = (props) => {
     const formRef = React.useRef<HTMLFormElement>(null);
 
-    const onChange: React.FormEventHandler<HTMLFormElement> = (e) => {
-        if (props.onChange) {
+    let onChange: React.FormEventHandler<HTMLFormElement>;
+    if (props.onChange) {
+        onChange = (e) => {
+            e.json = buildFormJson(e.currentTarget);
             props.onChange(e);
-        }
+        };
+    }
 
-        if (props.onFormDataChange) {
-            // const json = buildJSONFromForm(e.currentTarget);
-            // const isValid = e.currentTarget.checkValidity();
-            // props.onFormDataChange({
-            //     ...e,
-            //     json,
-            //     isValid,
-            // });
-        }
-    };
-
-    // let onChange: React.FormEventHandler<HTMLFormElement> | undefined;
-    // if (props.onChange) {
-    //     onChange = (e) => {
-    //         //
-    //     };
-    // }
-
-    const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
-        if (props.preventSubmit) {
-            e.preventDefault();
-        }
-
-        if (props.onSubmit) {
+    let onSubmit: React.FormEventHandler<HTMLFormElement>;
+    if (props.onSubmit) {
+        onSubmit = (e) => {
+            e.json = buildFormJson(e.currentTarget);
             props.onSubmit(e);
-        }
-    };
+        };
+    }
 
     return (
-        <form {...props} ref={formRef} onChange={onChange} onSubmit={handleSubmit}>
+        <form {...props} ref={formRef} onChange={onChange} onSubmit={onSubmit}>
             {props.children}
         </form>
     );
