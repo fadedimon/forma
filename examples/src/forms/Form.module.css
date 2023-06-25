@@ -1,5 +1,7 @@
 .layout {
     display: flex;
+    border: 1px solid #f5f5f5;
+    border-radius: 16px;
 }
 
 .layoutForm {
@@ -9,12 +11,11 @@
 
 .layoutJson {
     flex-grow: 1;
-    margin-left: 16px;
+    padding: 16px;
 }
 
 .layoutTitle {
-    font-size: 17px;
-    font-weight: 500;
+    font-size: 15px;
     margin: 0 0 16px;
 }
 
@@ -22,6 +23,15 @@
     background: #f5f5f5;
     border-radius: 16px;
     padding: 16px;
+}
+
+.formRow {
+    display: flex;
+    justify-content: space-between;
+}
+
+.formRow > * {
+    flex-grow: 1;
 }
 
 .formRow + .formRow {
@@ -63,6 +73,8 @@
 }
 
 .removeButton {
+    flex-grow: 0;
+    font-size: 10px;
     width: 32px;
     height: 32px;
     box-sizing: border-box;

@@ -33,8 +33,10 @@
     "build:types": "tsc --project tsconfig.types.json"
   },
   "peerDependencies": {
-    "forma-core": "0.0.1",
     "react": "^17 || ^18",
     "react-dom": "^17 || ^18"
+  },
+  "devDependencies": {
+    "forma-core": "0.0.1"
   }
 }

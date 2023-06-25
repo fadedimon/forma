@@ -13,8 +13,6 @@ type FormaListAction =
     | { type: 'unmark-removed'; payload: { id: string } };
 
 export function getReducer(name: string, emplyListPolicy: EmplyListPolicy, initialListLength: number) {
-    const newItemPlaceholder = `${name}~new~`;
-
     return (prevState: FormaListState, action: FormaListAction) => {
         switch (action.type) {
             case 'add':
@@ -25,7 +23,7 @@ export function getReducer(name: string, emplyListPolicy: EmplyListPolicy, initi
 
             case 'remove': {
                 const { id } = action.payload;
-                const isNew = id.startsWith(newItemPlaceholder);
+                const isNew = id.startsWith(buildNewKeyPrefix(name));
                 const removedItems = isNew ? prevState.removedItems : [...prevState.removedItems, id];
 
                 let addedItems = isNew ? prevState.addedItems.filter((item) => item !== id) : prevState.addedItems;
@@ -74,7 +72,7 @@ export function getReducedInitialState(
 }
 
 function getNewItemForList(name: string, list: string[]) {
-    const prefix = `${name}~new~`;
+    const prefix = buildNewKeyPrefix(name);
     const lastItem = list.slice(-1)[0];
 
     let nextNum = 0;
@@ -84,4 +82,8 @@ function getNewItemForList(name: string, list: string[]) {
     }
 
     return `${prefix}${nextNum}`;
+}
+
+function buildNewKeyPrefix(name: string) {
+    return `@forma-new(${name})~`;
 }
