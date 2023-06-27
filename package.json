@@ -11,12 +11,19 @@
   ],
   "scripts": {
     "clean": "npm run clean --workspaces",
-    "build": "npm run clean && rollup -c",
+    "check": "tsc --noEmit",
+    "build": "npm run clean && npm run check && rollup -c",
     "start": "cd examples && npm start"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^11.1.1",
     "@trivago/prettier-plugin-sort-imports": "^4.1.1",
+    "@types/react": "^17.0.62",
+    "@types/react-dom": "^17.0.20",
+    "forma-core": "file:./packages/forma-core/src",
+    "forma-react": "file:./packages/forma-react/src",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "prettier": "^2.8.8",
     "process": "^0.11.10",
     "rollup": "^3.25.1",

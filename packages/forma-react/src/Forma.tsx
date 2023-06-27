@@ -1,14 +1,11 @@
 import { buildFormJson } from 'forma-core';
 import React from 'react';
 
-interface PatchedFormEvent extends React.ChangeEvent<HTMLFormElement> {
-    json: Record<string, unknown>;
-}
+import { FormaEvent } from './types';
 
 interface FormaProps extends React.HTMLAttributes<HTMLFormElement> {
-    onChange?(e: PatchedFormEvent): unknown;
-    onSubmit?(e: PatchedFormEvent): unknown;
-    preventSubmit?: boolean;
+    onChange?(e: FormaEvent): unknown;
+    onSubmit?(e: FormaEvent): unknown;
 }
 
 export const Forma: React.FC<FormaProps> = (props) => {
@@ -16,18 +13,12 @@ export const Forma: React.FC<FormaProps> = (props) => {
 
     let onChange: React.FormEventHandler<HTMLFormElement>;
     if (props.onChange) {
-        onChange = (e) => {
-            e.json = buildFormJson(e.currentTarget);
-            props.onChange(e);
-        };
+        onChange = (e) => props.onChange(patchEvent(e));
     }
 
     let onSubmit: React.FormEventHandler<HTMLFormElement>;
     if (props.onSubmit) {
-        onSubmit = (e) => {
-            e.json = buildFormJson(e.currentTarget);
-            props.onSubmit(e);
-        };
+        onSubmit = (e) => props.onSubmit(patchEvent(e));
     }
 
     return (
@@ -36,3 +27,9 @@ export const Forma: React.FC<FormaProps> = (props) => {
         </form>
     );
 };
+
+function patchEvent(e: React.FormEvent<HTMLFormElement>): FormaEvent {
+    const patchedEvent = e as FormaEvent;
+    patchedEvent.json = buildFormJson(e.currentTarget);
+    return patchedEvent;
+}
