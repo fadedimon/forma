@@ -20,7 +20,7 @@ export function buildFormJson(form: HTMLFormElement) {
             continue;
         }
 
-        let targetResultNode: {} | {}[] = result;
+        let targetResultNode: Record<string, any> | Record<string, any>[] = result;
         const pathNames: string[] = [];
         if (path.length > 0) {
             let currNode;
@@ -28,6 +28,9 @@ export function buildFormJson(form: HTMLFormElement) {
                 const node = path[i];
 
                 if (node.type === 'record') {
+                    if (Array.isArray(targetResultNode)) {
+                        throw new Error(`Can not insert record into list`);
+                    }
                     let data = fieldsetElemToResultNodeMap.get(node.fieldsetElem);
                     if (!data) {
                         data = {};
@@ -44,6 +47,9 @@ export function buildFormJson(form: HTMLFormElement) {
                 }
 
                 if (node.type === 'list') {
+                    if (Array.isArray(targetResultNode)) {
+                        throw new Error(`Can not insert list into list`);
+                    }
                     currNode = node;
                     targetResultNode[node.name] = targetResultNode[node.name] || [];
                     targetResultNode = targetResultNode[node.name];
@@ -69,6 +75,10 @@ export function buildFormJson(form: HTMLFormElement) {
                     continue;
                 }
             }
+        }
+
+        if (Array.isArray(targetResultNode)) {
+            throw new Error('Invalid json structure: can not end with list');
         }
 
         if (Array.isArray(elemData.value) && targetResultNode[elemData.name]) {

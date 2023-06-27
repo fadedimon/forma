@@ -1,29 +1,5 @@
-.layout {
-    display: flex;
-    border: 1px solid #f5f5f5;
-    border-radius: 16px;
-}
 
-.layoutForm {
-    width: 250px;
-    flex-shrink: 0;
-}
 
-.layoutJson {
-    flex-grow: 1;
-    padding: 16px;
-}
-
-.layoutTitle {
-    font-size: 15px;
-    margin: 0 0 16px;
-}
-
-.form {
-    background: #f5f5f5;
-    border-radius: 16px;
-    padding: 16px;
-}
 
 .formRow {
     display: flex;

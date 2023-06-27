@@ -1,36 +1,47 @@
-import React from "react";
-import "./App.css";
-import { PlainForm } from "./forms/PlainForm";
+import React from 'react';
+import ReactJson from 'react-json-view';
 
-type FormId = "plain";
+import './App.css';
+import { FormLayout } from './components/FormLayout';
+import { ConditionalForm } from './forms/ConditionalForm';
+import { PlainForm } from './forms/PlainForm';
 
-const FORMS: { id: FormId; title: string; Component: React.ComponentType }[] = [
+interface FormConfigItem {
+    id: string;
+    title: string;
+    Component: React.FC<{
+        onSubmit(e: { json: Record<string, unknown> }): void;
+    }>;
+}
+
+const FORMS: FormConfigItem[] = [
     {
-        id: "plain",
-        title: "PlainForm",
-        Component: PlainForm,
+        id: 'plain',
+        title: 'Plain',
+        Component: (props) => <PlainForm onSubmit={(e) => props.onSubmit(e)} />,
+    },
+    {
+        id: 'conditional',
+        title: 'Conditional',
+        Component: (props) => <ConditionalForm onSubmit={(e) => props.onSubmit(e)} />,
     },
 ];
 
 export const App: React.FC = () => {
-    const [formId, setFormId] = React.useState<FormId>("plain");
+    const [formId, setFormId] = React.useState<string>('plain');
 
     return (
         <div className="root">
             <nav className="nav">
-                <h2 className="nav-title">Forms:</h2>
+                <h2 className="nav-title">Form examples:</h2>
                 <ul className="nav-list">
                     {FORMS.map((form) => (
                         <li
                             key={form.id}
-                            className={`nav-list-item ${
-                                form.id === formId
-                                    ? "nav-list-item__active"
-                                    : ""
-                            }`}
-                            onClick={() => setFormId(formId)}
+                            className={`nav-list-item ${form.id === formId ? 'nav-list-item__active' : ''}`}
+                            onClick={() => setFormId(form.id)}
                         >
-                            {form.title} ✅
+                            {form.title} {form.id === formId ? '✅' : ''}
                         </li>
                     ))}
                 </ul>
@@ -38,26 +49,22 @@ export const App: React.FC = () => {
 
             <main className="content">
                 <div className="content-inner">
-                    <Form formId={formId} />
+                    <Form formId={formId} key={formId} />
                 </div>
             </main>
         </div>
     );
 };
 
-function Form(props: { formId: FormId }) {
+function Form(props: { formId: string }) {
     const form = FORMS.find((form) => form.id === props.formId);
+    const [json, setJson] = React.useState({});
 
-    if (form) {
-        return (
-            <>
-                <h2 className="content-title">{form.title}</h2>
-                <div className="content-form">
-                    <form.Component />
-                </div>
-            </>
-        );
-    }
-
-    return null;
+    return form ? (
+        <FormLayout
+            title={`${form.title} form`}
+            form={<form.Component onSubmit={(e) => setJson(e.json)} />}
+            output={<ReactJson src={json} theme="summerfruit:inverted" />}
+        />
+    ) : null;
 }

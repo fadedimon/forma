@@ -6,6 +6,7 @@
     "esModuleInterop": true,
     "moduleResolution": "node",
     "useUnknownInCatchVariables": true,
+    "jsx": "react",
     "lib": [
       "DOM",
       "ES2017"
@@ -18,5 +19,10 @@
         "./packages/forma-react/src"
       ],
     }
-  }
+  },
+  "include": [
+    "examples",
+    "packages/forma-core",
+    "packages/forma-react",
+  ]
 }

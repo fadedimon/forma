@@ -1,2 +1,3 @@
-export { Forma } from './Forma';
-export { FormaList } from './FormaList';
+export * from './Forma';
+export * from './FormaList';
+export * from './types';
