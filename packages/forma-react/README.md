@@ -18,10 +18,10 @@ All you need to do is to structure you elements inside `Forma` component to repr
 Imagine this form:
 
 ```jsx
-import { Forma } from 'forma-react'
+import { Forma } from 'forma-react';
 
 export const BlogPostForm = (props) => (
-  <Forma onSubmit={e => console.log(e.data)} preventSubmit>
+  <Forma onSubmit={e => console.log(e.data)} >
     <input name="title" />
     <textarea name="text" />
     <input name="tags[]" />
@@ -160,6 +160,8 @@ Additional props:
 Example:
 
 ```jsx
+import { Forma, FormaList } from 'forma-react';
+
 interface YourFormProps {
   locations: {
     city: string,
