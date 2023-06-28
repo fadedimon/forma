@@ -27,7 +27,9 @@
     border-width: 1px 0 0;
 }
 
-.input {
+.input,
+.select,
+.selectMultiple {
     height: 32px;
     box-sizing: border-box;
     border: 1px solid rgba(0,0,0,0.1);
@@ -35,8 +37,13 @@
     padding: 0 8px;
 }
 
-.input + .input {
+.input + .input,
+.select + .select {
     margin-left: 4px;
+}
+
+.selectMultiple {
+    height: auto;
 }
 
 
