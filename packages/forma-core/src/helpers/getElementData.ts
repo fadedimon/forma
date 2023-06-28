@@ -52,7 +52,7 @@ export function getElementData(elem: Element): { name: string; origName: string;
         return null;
     }
 
-    if (checkIsInputElement(elem) && elem.type === 'number') {
+    if (checkIsInputElement(elem) && (elem.type === 'number' || elem.type === 'range')) {
         return {
             name,
             origName: name,
