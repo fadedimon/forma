@@ -48,7 +48,14 @@ export function getElementData(elem: Element): { name: string; origName: string;
     }
 
     if (checkIsInputElement(elem) && elem.type === 'radio') {
-        //TODO
+        if (!!elem.checked) {
+            return {
+                name,
+                value: elem.value,
+                origName: name,
+            };
+        }
+
         return null;
     }
 
