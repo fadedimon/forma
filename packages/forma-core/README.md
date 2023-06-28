@@ -99,10 +99,10 @@ Output:
 
 ```ts
 {
-  tags: Array<string>;
-  user: Array<{
+  tags: string[];
+  user: {
     firstName: string;
     secondName: string;
-  }>;
+  }[];
 }
 ```

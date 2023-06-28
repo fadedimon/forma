@@ -41,11 +41,11 @@ Its content is represented by the following structure (typescript-ish):
 {
   title: string;
   text: string;
-  tags: Array<string>;
-  relatedArticles: Array<{
+  tags: string[];
+  relatedArticles: {
     url: string;
     title: string;
-  }>;
+  }[];
 }
 ```
 
@@ -121,11 +121,11 @@ Output:
 
 ```ts
 {
-  tags: Array<string>;
-  user: Array<{
+  tags: string[];
+  user: {
     firstName: string;
     secondName: string;
-  }>;
+  }[];
 }
 ```
 
