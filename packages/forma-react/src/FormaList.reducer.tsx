@@ -1,5 +1,3 @@
-export type EmplyListPolicy = 'none' | 'at-least-one';
-
 interface FormaListState {
     addedItems: string[];
     removedItems: string[];
@@ -12,7 +10,7 @@ type FormaListAction =
     | { type: 'mark-removed'; payload: { id: string } }
     | { type: 'unmark-removed'; payload: { id: string } };
 
-export function getReducer(name: string, emplyListPolicy: EmplyListPolicy, initialListLength: number) {
+export function getReducer(name: string, initialListLength: number, allowEmpty: boolean) {
     return (prevState: FormaListState, action: FormaListAction) => {
         switch (action.type) {
             case 'add':
@@ -27,10 +25,7 @@ export function getReducer(name: string, emplyListPolicy: EmplyListPolicy, initi
                 const removedItems = isNew ? prevState.removedItems : [...prevState.removedItems, id];
 
                 let addedItems = isNew ? prevState.addedItems.filter((item) => item !== id) : prevState.addedItems;
-                if (
-                    initialListLength + addedItems.length - removedItems.length === 0 &&
-                    emplyListPolicy === 'at-least-one'
-                ) {
+                if (initialListLength + addedItems.length - removedItems.length === 0 && !allowEmpty) {
                     addedItems = [...addedItems, getNewItemForList(name, addedItems)];
                 }
 
@@ -61,11 +56,12 @@ export function getReducer(name: string, emplyListPolicy: EmplyListPolicy, initi
 
 export function getReducedInitialState(
     name: string,
-    emplyListPolicy: EmplyListPolicy,
+
     initialListLength: number,
+    allowEmpty: boolean,
 ): FormaListState {
     return {
-        addedItems: initialListLength === 0 && emplyListPolicy === 'at-least-one' ? [getNewItemForList(name, [])] : [],
+        addedItems: initialListLength === 0 && !allowEmpty ? [getNewItemForList(name, [])] : [],
         removedItems: [],
         markedAsRemovedItems: [],
     };

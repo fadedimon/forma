@@ -13,6 +13,7 @@
     "clean": "npm run clean --workspaces",
     "check": "tsc --noEmit",
     "build": "npm run clean && npm run check && rollup -c",
+    "publish": "npm publish --workspaces",
     "start": "cd examples && npm start"
   },
   "devDependencies": {

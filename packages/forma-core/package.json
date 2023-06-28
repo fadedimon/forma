@@ -1,6 +1,6 @@
 {
   "name": "forma-core",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "author": "Dmitry Baranov (fadedimon@gmail.com)",
   "repository": {
@@ -14,7 +14,9 @@
   "types": "src/index.ts",
   "sideEffects": false,
   "files": [
-    "lib"
+    "lib",
+    "package.json",
+    "README.md"
   ],
   "exports": {
     ".": {
@@ -31,8 +33,5 @@
   "scripts": {
     "clean": "rm -rf ./lib",
     "build:types": "tsc --project tsconfig.types.json"
-  },
-  "devDependencies": {
-    "forma-core": "^0.0.1"
   }
 }

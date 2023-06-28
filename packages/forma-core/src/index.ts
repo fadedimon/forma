@@ -1,1 +1,1 @@
-export { buildFormJson } from './buildFormJson';
+export { extractFormData } from './extractFormData';

@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { EmplyListPolicy, getReducedInitialState, getReducer } from './FormaList.reducer';
+import { getReducedInitialState, getReducer } from './FormaList.reducer';
 
 interface FormListChildrenItem<TItem extends any> {
     id: string;
@@ -13,7 +13,23 @@ interface FormListProp<TItem extends any> {
     items: FormListChildrenItem<TItem>[];
     add(): void;
     remove(id: string): void;
+    /**
+     * **Warning**: Not supported right now. To use it you will have to remove **all** "marked as removed" item's `name` attributes
+     *
+     * **How it will work**: \
+     * Item will be removed from resulting form data, but it will remain in a `FormaList` marked as `isMarkedRemoved`.
+     * This way it could be displayed and returned.
+     *
+     * @deprecated
+     * @param id Item id
+     */
     markRemoved(id: string): void;
+    /**
+     * Unmark item as removed.
+     *
+     * @deprecated
+     * @param id Item id
+     */
     unmarkRemoved(id: string): void;
 }
 
@@ -21,15 +37,21 @@ interface FormaListProps<TItem extends any> {
     name: string;
     defaultItems: TItem[];
     getItemId(item: TItem): string;
-    emplyListPolicy?: EmplyListPolicy;
     children(list: FormListProp<TItem>): ReactElement<any, any> | null;
+    /**
+     * Tells `FormaList` to handle empty lists.
+     * - if `true`, items passed to `children` render-function cound be empty, if `defaultItems` are empty or they was removed
+     * - if `false`, items passed to `children` render-function will always contain at least one item.
+     * @default true
+     */
+    allowEmpty?: boolean;
 }
 
 export function FormaList<TItem extends any>(props: FormaListProps<TItem>) {
-    const { emplyListPolicy = 'none' } = props;
+    const { allowEmpty = true } = props;
     const [state, dispatch] = React.useReducer(
-        getReducer(props.name, emplyListPolicy, props.defaultItems.length),
-        getReducedInitialState(props.name, emplyListPolicy, props.defaultItems.length),
+        getReducer(props.name, props.defaultItems.length, allowEmpty),
+        getReducedInitialState(props.name, props.defaultItems.length, allowEmpty),
     );
 
     return props.children({
