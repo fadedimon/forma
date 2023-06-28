@@ -20,7 +20,7 @@ Imagine this form:
 ```jsx
 import { Forma } from 'forma-react';
 
-export const BlogPostForm = (props) => (
+export const BlogPostForm = () => (
   <Forma onSubmit={e => console.log(e.data)} >
     <input name="title" />
     <textarea name="text" />
