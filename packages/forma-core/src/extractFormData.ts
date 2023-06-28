@@ -2,7 +2,7 @@ import { getElementData } from './helpers/getElementData';
 import { ElementPathItem, getElementPath } from './helpers/getElementPath';
 import { Value } from './types';
 
-export function buildFormJson(form: HTMLFormElement) {
+export function extractFormData<T extends Record<string, unknown> = Record<string, unknown>>(form: HTMLFormElement): T {
     const result: Record<string, unknown> = {};
     const fieldsetElemToResultNodeMap = new Map<HTMLFieldSetElement, Record<string, Value>>();
 
@@ -94,5 +94,5 @@ export function buildFormJson(form: HTMLFormElement) {
         }
     }
 
-    return result;
+    return result as T;
 }

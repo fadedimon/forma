@@ -1,5 +1,6 @@
 import React from 'react';
 
-export interface FormaEvent extends React.ChangeEvent<HTMLFormElement> {
-    json: Record<string, unknown>;
+export interface FormaEvent<T extends Record<string, unknown> = Record<string, unknown>>
+    extends React.ChangeEvent<HTMLFormElement> {
+    data: T;
 }

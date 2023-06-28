@@ -6,12 +6,7 @@ import * as styles from './Form.module.css';
 import { FormProps } from './Form.types';
 
 export const PlainForm: React.FC<FormProps> = (props) => (
-    <Forma
-        onSubmit={(e) => {
-            e.preventDefault();
-            props.onSubmit(e);
-        }}
-    >
+    <Forma onSubmit={props.onSubmit}>
         <FormField title="First name" htmlFor="firstName">
             <div className={styles.formRow}>
                 <input
@@ -45,7 +40,7 @@ export const PlainForm: React.FC<FormProps> = (props) => (
         </FormField>
 
         <FormField title="Tags">
-            <FormaList name="tags" defaultItems={[]} emplyListPolicy="none" getItemId={() => ''}>
+            <FormaList name="tags" defaultItems={[]} getItemId={() => ''}>
                 {(list) => (
                     <>
                         {list.items.map((item) => (
@@ -70,7 +65,7 @@ export const PlainForm: React.FC<FormProps> = (props) => (
         </FormField>
 
         <FormField title="Locations">
-            <FormaList name="locations" defaultItems={[]} emplyListPolicy="none" getItemId={() => ''}>
+            <FormaList name="locations" defaultItems={[]} getItemId={() => ''}>
                 {(list) => (
                     <>
                         {list.items.map((item, i) => (

@@ -11,7 +11,7 @@ interface FormConfigItem {
     id: string;
     title: string;
     Component: React.FC<{
-        onSubmit(e: { json: Record<string, unknown> }): void;
+        onSubmit(e: { data: Record<string, unknown> }): void;
     }>;
 }
 
@@ -69,7 +69,7 @@ function Form(props: { formId: string }) {
     return form ? (
         <FormLayout
             title={`${form.title} form`}
-            form={<form.Component onSubmit={(e) => setJson(e.json)} />}
+            form={<form.Component onSubmit={(e) => setJson(e.data)} />}
             output={<ReactJson src={json} theme="summerfruit:inverted" />}
         />
     ) : null;

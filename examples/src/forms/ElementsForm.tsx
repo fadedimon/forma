@@ -24,12 +24,7 @@ const INPUTS: [string, string | number, HTMLProps<HTMLAttributes<HTMLInputElemen
 ];
 
 export const ElementsForm: React.FC<FormProps> = (props) => (
-    <Forma
-        onSubmit={(e) => {
-            e.preventDefault();
-            props.onSubmit(e);
-        }}
-    >
+    <Forma onSubmit={props.onSubmit}>
         <fieldset name="inputs" className={styles.fieldSet}>
             <legend>Inputs</legend>
 
@@ -87,10 +82,8 @@ export const ElementsForm: React.FC<FormProps> = (props) => (
 
             <FormField title="Select" htmlFor="select">
                 <div className={styles.formRow}>
-                    <select id="select" name="select" className={styles.select}>
-                        <option value="select-value-1" selected>
-                            Value #1
-                        </option>
+                    <select id="select" name="select" className={styles.select} defaultValue="select-value-1">
+                        <option value="select-value-1">Value #1</option>
                         <option value="select-value-2">Value #2</option>
                         <option value="select-value-3">Value #3</option>
                         <option value="select-value-4">Value #4</option>
@@ -99,15 +92,17 @@ export const ElementsForm: React.FC<FormProps> = (props) => (
                 </div>
             </FormField>
 
-            <FormField title="Multiple select" htmlFor="select">
+            <FormField title="Multiple select" htmlFor="multipleSelect">
                 <div className={styles.formRow}>
-                    <select id="select" name="multipleSelect" className={styles.selectMultiple} multiple>
-                        <option value="select-value-1" selected>
-                            Value #1
-                        </option>
-                        <option value="select-value-2" selected>
-                            Value #2
-                        </option>
+                    <select
+                        id="multipleSelect"
+                        name="multipleSelect"
+                        className={styles.selectMultiple}
+                        defaultValue={['select-value-1', 'select-value-2']}
+                        multiple
+                    >
+                        <option value="select-value-1">Value #1</option>
+                        <option value="select-value-2">Value #2</option>
                         <option value="select-value-3">Value #3</option>
                         <option value="select-value-4">Value #4</option>
                         <option value="select-value-5">Value #5</option>
@@ -121,9 +116,7 @@ export const ElementsForm: React.FC<FormProps> = (props) => (
 
             <FormField title="Select" htmlFor="textarea">
                 <div className={styles.formRow}>
-                    <textarea id="textarea" name="textarea">
-                        Textarea value
-                    </textarea>
+                    <textarea id="textarea" name="textarea" defaultValue="Textarea value" />
                 </div>
             </FormField>
         </fieldset>
