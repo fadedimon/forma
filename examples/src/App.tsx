@@ -4,6 +4,7 @@ import ReactJson from 'react-json-view';
 import './App.css';
 import { FormLayout } from './components/FormLayout';
 import { ConditionalForm } from './forms/ConditionalForm';
+import { ElementsForm } from './forms/ElementsForm';
 import { PlainForm } from './forms/PlainForm';
 
 interface FormConfigItem {
@@ -25,10 +26,15 @@ const FORMS: FormConfigItem[] = [
         title: 'Conditional',
         Component: (props) => <ConditionalForm onSubmit={(e) => props.onSubmit(e)} />,
     },
+    {
+        id: 'elements',
+        title: 'Elements',
+        Component: (props) => <ElementsForm onSubmit={(e) => props.onSubmit(e)} />,
+    },
 ];
 
 export const App: React.FC = () => {
-    const [formId, setFormId] = React.useState<string>('plain');
+    const [formId, setFormId] = React.useState<string>('elements');
 
     return (
         <div className="root">
