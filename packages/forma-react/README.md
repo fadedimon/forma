@@ -1,12 +1,15 @@
 # forma-react
 
 `forma-react` is a library for building forms with plain HTML and a little bit of sugar to support lists and nesting.
-Forma encourages a stateless approach for building HTML-forms. Meaning no redux, no hooks or whatever, no useState-s unless **you** need it.
-All you need to do is to structure html the way your data should look like. Forma will pick up values and build it for you.
+
+Forma encourages a stateless approach for building HTML-forms.
+Meaning no redux, no hooks, no useState-s or whatever unless **you** need it.
+All you need to do is to structure html the way your data should look like.
+Forma will pick up values and build it for you.
 
 ## Installation
 
-Depending on package-manager you use:
+Depending on package-manager, install package with one of the following commands:
 
 - `npm install forma-react --save`
 - `yarn add forma-react`
@@ -20,13 +23,13 @@ Imagine this form:
 ```jsx
 import { Forma } from 'forma-react';
 
-export const BlogPostForm = () => (
-  <Forma onSubmit={e => console.log(e.data)} >
+const BlogPostForm = () => (
+  <Forma onSubmit={(e) => console.log(e.data)}>
     <input name="title" />
     <textarea name="text" />
     <input name="tags[]" />
     <fieldset name="relatedArticles[]">
-      <input name="url" type="url />
+      <input name="url" type="url" />
       <input name="title" />
     </fieldset>
     <button type="submit">Submit</button>
@@ -34,7 +37,7 @@ export const BlogPostForm = () => (
 );
 ```
 
-When submitted, `Forma` will add `data` property to `submit` event,
+When submitted, `Forma` will add second argument with form data to `submit` event.
 Its content is represented by the following structure (typescript-ish):
 
 ```ts
@@ -51,11 +54,9 @@ Its content is represented by the following structure (typescript-ish):
 
 ## Basic concepts
 
-Main idea is to give developers full control over their components.
-Forma just extracts data from `<form>` html element, and structures it the way form's children elements are.
-With a little bit of sugar you can get nesting and lists.
-
-Forma is looking for standart form elements and builds data based on their `name` attributes and their nesting inside parent form.
+Main idea is simpler the better, and rest comes from it.
+Forma is looking for basic form elements like inputs and selects and builds form data based on their `name` attributes and their nesting inside parent form.
+So no dictating over what components to use or how to use them.
 
 For example:
 
@@ -103,7 +104,7 @@ Output:
 
 **Lists**
 
-To get lists , just add `[]` at the end of elements name. No matter how many elements there is with this name (one or many), their data will be joined into list
+To get lists , just add `[]` at the end of elements name. No matter how many elements there are with this name (one or many), their data will be joined into list
 
 For example:
 
@@ -131,23 +132,42 @@ Output:
 
 ## How form elements are treated
 
-To find out how form elements are treated, [check README](../forma-core/README.md) of `forma-core` package.
+| Code                             | Value type | Comment                                 |
+| -------------------------------- | ---------- | --------------------------------------- |
+| **Input elements**               |            |                                         |
+| `<input type="checkbox" />`      | `boolean`  | -                                       |
+| `<input type="number" />`        | `number`   | -                                       |
+| `<input type="range" />`         | `number`   | -                                       |
+| `<input type="file" />`          | `FileList` | -                                       |
+| `<input type="file" multiple />` | `FileList` | -                                       |
+| `<input type="*" />`             | `string`   | Rest input types are treated as strings |
+| **Select elements**              |            |                                         |
+| `<select />`                     | `string`   | -                                       |
+| `<select multiple />`            | `string[]` | -                                       |
+| **Textarea elements**            |            |                                         |
+| `<textarea />`                   | `string`   | -                                       |
 
 ## Contents
 
 ### `Forma` Component
 
-This is a root form component, it renders `<form>` element with all properties you pass into it. All it does, is adds `data` property to `input`, `change` and `submit` events.
+This is a root form component, it renders `<form>` element and allows to pass all props you want, but it adds second arguments to `onSubmit`, `onChange` and `onInput` callbacks with form data as object.
 
 ```jsx
 import { Forma } from 'forma-react';
 
-export const YourForm = (props) => {
-  return <Forma onSubmit={(e) => console.log(e.json)}>{/* elements*/}</Forma>;
-};
+const YourForm = (props) => (
+  <Forma
+    onInput={(e, data) => console.log('onInput:', data)}
+    onChange={(e, data) => console.log('onChange:', data)}
+    onSubmit={(e, data) => console.log('onSubmit:', data)}
+  >
+    {/* elements*/}
+  </Forma>
+);
 ```
 
-Additional props:
+**Additional props:**
 
 | Name            | Type      | Description                                                                                 | Default value |
 | --------------- | --------- | ------------------------------------------------------------------------------------------- | ------------- |
@@ -155,7 +175,7 @@ Additional props:
 
 ### `FormaList` Component
 
-`FormaList` is a component for building lists of items in a form. It can be used for "simple" elements as well as for structured ones. It allows to display list items, remove and add new ones.
+This is a component for building lists of items in a form. It can be used for "simple" elements as well as for complex (structured) ones. It helps to show lists of items, and gives methods to remove and add new ones.
 
 Example:
 
@@ -169,7 +189,7 @@ interface YourFormProps {
   }[];
 }
 
-export const YourForm: FC<YourFormProps> = (props) => (
+const YourForm: FC<YourFormProps> = (props) => (
   <Forma>
     ...
     <FormaList name="locations" defaultItems={props.locations} getItemId={(location) => location.id}>

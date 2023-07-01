@@ -11,7 +11,7 @@ interface FormConfigItem {
     id: string;
     title: string;
     Component: React.FC<{
-        onSubmit(e: { data: Record<string, unknown> }): void;
+        onSubmit(data: Record<string, unknown>): void;
     }>;
 }
 
@@ -19,17 +19,17 @@ const FORMS: FormConfigItem[] = [
     {
         id: 'plain',
         title: 'Plain',
-        Component: (props) => <PlainForm onSubmit={(e) => props.onSubmit(e)} />,
+        Component: (props) => <PlainForm onSubmit={props.onSubmit} />,
     },
     {
         id: 'conditional',
         title: 'Conditional',
-        Component: (props) => <ConditionalForm onSubmit={(e) => props.onSubmit(e)} />,
+        Component: (props) => <ConditionalForm onSubmit={props.onSubmit} />,
     },
     {
         id: 'elements',
         title: 'Elements',
-        Component: (props) => <ElementsForm onSubmit={(e) => props.onSubmit(e)} />,
+        Component: (props) => <ElementsForm onSubmit={props.onSubmit} />,
     },
 ];
 
