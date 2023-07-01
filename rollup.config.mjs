@@ -19,7 +19,7 @@ function buildConfig(name, format) {
             }),
             nodeExternals(),
         ],
-        external: ['react', 'tslib'],
+        external: ['react'],
         output: [
             format === 'esm' && {
                 format: 'esm',

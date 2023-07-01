@@ -83,12 +83,12 @@ export function extractFormData<T extends Record<string, unknown> = Record<strin
 
         if (Array.isArray(elemData.value) && targetResultNode[elemData.name]) {
             if (!Array.isArray(targetResultNode[elemData.name])) {
-                const publicPath = `${[...pathNames, elemData.origName].join('.')}`;
+                const publicPath = `${pathNames.concat(elemData.origName).join('.')}`;
                 throw new Error(
                     `Can not switch between list and non-list values. Check name attributes for ${publicPath}`,
                 );
             }
-            targetResultNode[elemData.name] = [...targetResultNode[elemData.name], ...elemData.value];
+            targetResultNode[elemData.name] = targetResultNode[elemData.name].concat(elemData.value);
         } else {
             targetResultNode[elemData.name] = elemData.value;
         }

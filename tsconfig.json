@@ -7,6 +7,7 @@
     "moduleResolution": "node",
     "useUnknownInCatchVariables": true,
     "jsx": "react",
+    "target": "ES6",
     "lib": [
       "DOM",
       "ES2017"
