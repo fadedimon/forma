@@ -132,20 +132,22 @@ Output:
 
 ## How form elements are treated
 
-| Code                             | Value type | Comment                                 |
-| -------------------------------- | ---------- | --------------------------------------- |
-| **Input elements**               |            |                                         |
-| `<input type="checkbox" />`      | `boolean`  | -                                       |
-| `<input type="number" />`        | `number`   | -                                       |
-| `<input type="range" />`         | `number`   | -                                       |
-| `<input type="file" />`          | `FileList` | -                                       |
-| `<input type="file" multiple />` | `FileList` | -                                       |
-| `<input type="*" />`             | `string`   | Rest input types are treated as strings |
-| **Select elements**              |            |                                         |
-| `<select />`                     | `string`   | -                                       |
-| `<select multiple />`            | `string[]` | -                                       |
-| **Textarea elements**            |            |                                         |
-| `<textarea />`                   | `string`   | -                                       |
+**Please note**, that elements without `required` attribute should be "optional" in your expectations, 'cause if they're not holding value, they will be skipped
+
+| Code                             | Value type | Comment                                                                 |
+| -------------------------------- | ---------- | ----------------------------------------------------------------------- |
+| **Input elements**               |            |                                                                         |
+| `<input type="checkbox" />`      | `boolean`  | -                                                                       |
+| `<input type="number" />`        | `number`   | -                                                                       |
+| `<input type="range" />`         | `number`   | -                                                                       |
+| `<input type="file" />`          | `FileList` | This type of input is always singular                                   |
+| `<input type="file" multiple />` | `FileList` | -                                                                       |
+| `<input type="*" />`             | `string`   | Input types, that are not mentioned above are always treated as strings |
+| **Select elements**              |            |                                                                         |
+| `<select />`                     | `string`   | -                                                                       |
+| `<select multiple />`            | `string[]` | -                                                                       |
+| **Textarea elements**            |            |                                                                         |
+| `<textarea />`                   | `string`   | -                                                                       |
 
 ## Contents
 
