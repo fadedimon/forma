@@ -8,8 +8,8 @@ export type ElementPathItem =
 export function getElementPath(elem: Element, form: HTMLFormElement): ElementPathItem[] {
     const result: ElementPathItem[] = [];
     let target = elem.parentNode as Element;
-    while (target !== form) {
-        if (checkIsFieldsetElement(target)) {
+    while (target && target !== form) {
+        if (checkIsFieldsetElement(target) && target.name) {
             const { id } = target;
             const nameTrimmed = target.name.trim();
             if (checkIsListName(nameTrimmed)) {

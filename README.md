@@ -7,12 +7,12 @@ Please check examples to find our more.
 
 ## Examples
 
-If we need a plain json like `{ title: string, name: string }`, we can have it with a simple form:
+If we need a plain json like `{ firstName: string, lastName: string }`, we can have it with a simple form:
 
 ```html
 <form>
-  <input name="title" />
-  <input name="name" />
+  <input name="firstName" />
+  <input name="lastName" />
 </form>
 ```
 
@@ -23,8 +23,8 @@ But what if we need something more complex? For example, title and name should b
 ```typescript
 {
   "user": {
-    "title": string;
-    "name": string;
+    "firstName": string;
+    "lastName": string;
   };
   "tags": string[];
   "locations": {
@@ -39,8 +39,8 @@ Forma allows us to express this "json structure" with the following html:
 ```html
 <form>
   <fieldset name="user">
-    <input name="title" />
-    <input name="name" />
+    <input name="firstName" />
+    <input name="lastName" />
   </fieldset>
 
   <input name="tags[]" />
