@@ -1,6 +1,6 @@
 {
   "name": "forma-react",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "",
   "author": "Dmitry Baranov (fadedimon@gmail.com)",
   "repository": {
@@ -33,7 +33,7 @@
     "clean": "rm -rf ./lib"
   },
   "dependencies": {
-    "forma-core": "0.0.5"
+    "forma-core": "0.0.6"
   },
   "peerDependencies": {
     "react": "^17 || ^18",
