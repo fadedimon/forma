@@ -55,8 +55,8 @@ Its content is represented by the following structure (typescript-ish):
 ## Basic concepts
 
 Main idea is simpler the better, and rest comes from it.
-Forma is looking for basic form elements like inputs and selects and builds form data based on their `name` attributes and their nesting inside parent form.
-So no dictating over what components to use or how to use them.
+No complex components, no complex concepts.
+Forma looks for basic form elements like inputs, selects and textareas, collects their values and builds form data based on their `name` attributes and nesting based on their parent `<fieldset>` elements.
 
 For example:
 
@@ -78,7 +78,7 @@ Output:
 
 **Nesting**
 
-For nesting, just wrap form elements into `<fieldset>` element.
+For nesting elements, just wrap them in `<fieldset>` elements
 
 For example:
 
@@ -104,7 +104,8 @@ Output:
 
 **Lists**
 
-To get lists , just add `[]` at the end of elements name. No matter how many elements there are with this name (one or many), their data will be joined into list
+To have lists, just add `[]` at the end of element's `name` properties.
+Doesn't matter how many elements there are with this name (one or many), their values will be grouped by names into lists
 
 For example:
 
@@ -130,9 +131,18 @@ Output:
 }
 ```
 
+## Validation
+
+Forma doesn't give any advice how to validate forms, no built-in solution to keep things simple.
+It seems appropriate to let browser do all the job by using proper input types, "required" and "pattern" attributes.
+But any other validation can be performed.
+Again — you choose, what is best for your project.
+
+Please refer to [MDN's Client-Side form validation](https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation) article to find out more what kind of validation browsers provide out of the box.
+
 ## How form elements are treated
 
-**Please note**, that elements without `required` attribute should be "optional" in your expectations, 'cause if they're not holding value, they will be skipped
+**Please note**, that elements without `required` attribute should be "optional" in your expectations, because if they're not holding value, they will be skipped by Forma
 
 | Code                             | Value type | Comment                                                                 |
 | -------------------------------- | ---------- | ----------------------------------------------------------------------- |
