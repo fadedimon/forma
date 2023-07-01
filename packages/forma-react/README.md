@@ -63,7 +63,7 @@ For example:
 ```jsx
 <Forma>
   <input name="firstName" />
-  <input name="secondName" />
+  <input name="lastName" />
 </Forma>
 ```
 
@@ -72,7 +72,7 @@ Output:
 ```ts
 {
   firstName: string;
-  secondName: string;
+  lastName: string;
 }
 ```
 
@@ -86,7 +86,7 @@ For example:
 <Forma>
   <fieldset name="user">
     <input name="firstName" />
-    <input name="secondName" />
+    <input name="lastName" />
   </fieldset>
 </Forma>
 ```
@@ -97,7 +97,7 @@ Output:
 {
   user: {
     firstName: string;
-    secondName: string;
+    lastName: string;
   }
 }
 ```
@@ -113,7 +113,7 @@ For example:
   <input name="tags[]" />
   <fieldset name="user[]">
     <input name="firstName" />
-    <input name="secondName" />
+    <input name="lastName" />
   </fieldset>
 </Forma>
 ```
@@ -125,7 +125,7 @@ Output:
   tags: string[];
   user: {
     firstName: string;
-    secondName: string;
+    lastName: string;
   }[];
 }
 ```

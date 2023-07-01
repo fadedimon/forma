@@ -19,20 +19,22 @@ console.log(data) // { ... } — Object with form's content
 
 ## How form elements are treated
 
-| Code                             | Value type | Comment                                 |
-| -------------------------------- | ---------- | --------------------------------------- |
-| **Input elements**               |            |                                         |
-| `<input type="checkbox" />`      | `boolean`  | -                                       |
-| `<input type="number" />`        | `number`   | -                                       |
-| `<input type="range" />`         | `number`   | -                                       |
-| `<input type="file" />`          | `FileList` | -                                       |
-| `<input type="file" multiple />` | `FileList` | -                                       |
-| `<input type="*" />`             | `string`   | Rest input types are treated as strings |
-| **Select elements**              |            |                                         |
-| `<select />`                     | `string`   | -                                       |
-| `<select multiple />`            | `string[]` | -                                       |
-| **Textarea elements**            |            |                                         |
-| `<textarea />`                   | `string`   | -                                       |
+Please note, that any element without `required` attribute will be "optional" in resulted form data.
+
+| Code                             | Value type | Comment                                                                       |
+| -------------------------------- | ---------- | ----------------------------------------------------------------------------- |
+| **Input elements**               |            |                                                                               |
+| `<input type="checkbox" />`      | `boolean`  | -                                                                             |
+| `<input type="number" />`        | `number`   | -                                                                             |
+| `<input type="range" />`         | `number`   | -                                                                             |
+| `<input type="file" />`          | `FileList` | -                                                                             |
+| `<input type="file" multiple />` | `FileList` | -                                                                             |
+| `<input type="*" />`             | `string`   | Rest input types are treated as strings. This typeof input is always singular |
+| **Select elements**              |            |                                                                               |
+| `<select />`                     | `string`   | -                                                                             |
+| `<select multiple />`            | `string[]` | -                                                                             |
+| **Textarea elements**            |            |                                                                               |
+| `<textarea />`                   | `string`   | -                                                                             |
 
 ## Nesting
 
@@ -42,8 +44,8 @@ Example:
 
 ```jsx
 <fieldset name="user">
-  <input name="firstName" />
-  <input name="secondName" />
+  <input name="firstName" required />
+  <input name="lastName" required />
 </fieldset>
 ```
 
@@ -53,7 +55,7 @@ Output:
 {
   user: {
     firstName: string;
-    secondName: string;
+    lastName: string;
   }
 }
 ```
@@ -64,8 +66,8 @@ Example:
 
 ```jsx
 <fieldset name="user" id="<% SOME_ID %>">
-  <input name="firstName" />
-  <input name="secondName" />
+  <input name="firstName" required />
+  <input name="lastName" required />
 </fieldset>
 ```
 
@@ -75,7 +77,7 @@ Output:
 {
   user: {
     firstName: string;
-    secondName: string;
+    lastName: string;
   }
 }
 ```
@@ -88,10 +90,10 @@ For example:
 
 ```jsx
 <Forma>
-  <input name="tags[]" />
+  <input name="tags[]" required />
   <fieldset name="user[]">
-    <input name="firstName" />
-    <input name="secondName" />
+    <input name="firstName" required />
+    <input name="lastName" required />
   </fieldset>
 </Forma>
 ```
@@ -103,7 +105,7 @@ Output:
   tags: string[];
   user: {
     firstName: string;
-    secondName: string;
+    lastName: string;
   }[];
 }
 ```
