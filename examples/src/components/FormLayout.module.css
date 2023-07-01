@@ -1,5 +1,5 @@
 .layout {
-    
+    /*  */
 }
 
 .layoutTitle {
@@ -12,14 +12,23 @@
     border-radius: 16px;
     margin-top: 18px;
 }
+@media (max-width: 900px) {
+    .layoutInner {
+        display: block;
+    }
+}
 
 .layoutInnerForm {
-    width: 250px;
+    width: 290px;
     flex-shrink: 0;
     background: #f5f5f5;
     border-radius: 16px;
     padding: 16px;
-    
+}
+@media (max-width: 900px) {
+    .layoutInnerForm {
+        width: auto;
+    }
 }
 
 .layoutInnerOutput {

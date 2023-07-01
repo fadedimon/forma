@@ -69,7 +69,7 @@ function Form(props: { formId: string }) {
     return form ? (
         <FormLayout
             title={`${form.title} form`}
-            form={<form.Component onSubmit={(e) => setJson(e.data)} />}
+            form={<form.Component onSubmit={setJson} />}
             output={<ReactJson src={json} theme="summerfruit:inverted" />}
         />
     ) : null;

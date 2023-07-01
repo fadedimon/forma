@@ -4,11 +4,22 @@
     align-items: stretch;
     justify-content: flex-start;
 }
+@media (max-width: 800px) {
+    .root {
+        display: block;
+    }
+}
 
 .nav {
     min-width: 160px;
     padding: 18px 16px;
     border-right: 1px solid rgba(0,0,0, 0.1);
+}
+@media (max-width: 800px) {
+    .nav {
+        min-width: none;
+        border-right: 0;
+    }
 }
 
 .nav-title {
@@ -42,9 +53,14 @@
 }
 
 .content-inner {
-    width: 80%;
+    width: 90%;
     max-width: 740px;
     margin: 0 auto;
+}
+@media (max-width: 800px) {
+    .content-inner {
+        width: auto;
+    }
 }
 
 .content-title {

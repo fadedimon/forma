@@ -42,6 +42,11 @@
     margin-left: 4px;
 }
 
+.input[type="file"] {
+    padding: 0;
+    border: 0;
+}
+
 .selectMultiple {
     height: auto;
 }
