@@ -32,11 +32,11 @@
   "scripts": {
     "clean": "rm -rf ./lib"
   },
+  "dependencies": {
+    "forma-core": "0.0.4"
+  },
   "peerDependencies": {
     "react": "^17 || ^18",
     "react-dom": "^17 || ^18"
-  },
-  "devDependencies": {
-    "forma-core": "0.0.4"
   }
 }

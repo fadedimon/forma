@@ -6,12 +6,12 @@ interface FormaListState {
 type FormaListAction = { type: 'add' } | { type: 'remove'; payload: { id: string } };
 
 export function getReducer(name: string, initialListLength: number, allowEmpty: boolean) {
-    return (prevState: FormaListState, action: FormaListAction) => {
+    return (prevState: FormaListState, action: FormaListAction): FormaListState => {
         switch (action.type) {
             case 'add':
                 return {
-                    ...prevState,
                     addedItems: [...prevState.addedItems, getNewItemForList(name, prevState.addedItems)],
+                    removedItems: prevState.removedItems,
                 };
 
             case 'remove': {
@@ -25,7 +25,6 @@ export function getReducer(name: string, initialListLength: number, allowEmpty: 
                 }
 
                 return {
-                    ...prevState,
                     addedItems,
                     removedItems,
                 };

@@ -35,23 +35,21 @@ export function FormaList<TItem extends any>(props: FormaListProps<TItem>) {
         getReducedInitialState(props.name, props.defaultItems.length, allowEmpty),
     );
 
+    const defaultItems: FormListChildrenItem<TItem>[] = props.defaultItems
+        .map((item) => ({
+            id: props.getItemId(item),
+            data: item,
+            isNew: false,
+        }))
+        .filter((item) => !state.removedItems.some((removedId) => removedId === item.id));
+
+    const newItems: FormListChildrenItem<TItem>[] = state.addedItems.map((id) => ({
+        id,
+        isNew: true,
+    }));
+
     return props.children({
-        items: [
-            ...props.defaultItems
-                .map((item) => {
-                    const id = props.getItemId(item);
-                    return {
-                        id,
-                        data: item,
-                        isNew: false,
-                    };
-                })
-                .filter((item) => !state.removedItems.some((removedId) => removedId === item.id)),
-            ...state.addedItems.map((id) => ({
-                id,
-                isNew: true,
-            })),
-        ],
+        items: defaultItems.concat(newItems),
         add: () => dispatch({ type: 'add' }),
         remove: (id: string) => dispatch({ type: 'remove', payload: { id } }),
     });
