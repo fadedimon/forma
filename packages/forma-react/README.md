@@ -24,7 +24,7 @@ Imagine this form:
 import { Forma } from 'forma-react';
 
 const BlogPostForm = () => (
-  <Forma onSubmit={(e) => console.log(e.data)}>
+  <Forma onSubmit={(e, data) => console.log(data)}>
     <input name="title" />
     <textarea name="text" />
     <input name="tags[]" />
