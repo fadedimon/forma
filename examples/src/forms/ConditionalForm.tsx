@@ -9,7 +9,7 @@ export const ConditionalForm: React.FC<FormProps> = (props) => {
     const [type, setType] = React.useState('task');
 
     return (
-        <Forma onSubmit={props.onSubmit}>
+        <Forma onSubmit={(_, data) => props.onSubmit(data)}>
             <FormField title="Task type" htmlFor="type">
                 <div className={styles.formRow}>
                     <select

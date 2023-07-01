@@ -1,17 +1,16 @@
 import { extractFormData } from 'forma-core';
 import React from 'react';
 
-import { FormaEvent } from './types';
-
-interface FormaProps<T extends Record<string, unknown>> extends React.HTMLAttributes<HTMLFormElement> {
+interface FormaProps<T extends Record<string, unknown>>
+    extends Omit<React.HTMLAttributes<HTMLFormElement>, 'onInput' | 'onChange' | 'onSubmit'> {
     /**
      * Prevents submit event
      * @default true
      */
     preventSubmit?: boolean;
-    onInput?(e: FormaEvent<T>): unknown;
-    onChange?(e: FormaEvent<T>): unknown;
-    onSubmit?(e: FormaEvent<T>): unknown;
+    onInput?(e: React.FormEvent<HTMLFormElement>, data: T): unknown;
+    onChange?(e: React.FormEvent<HTMLFormElement>, data: T): unknown;
+    onSubmit?(e: React.FormEvent<HTMLFormElement>, data: T): unknown;
 }
 
 export function Forma<T extends Record<string, unknown> = Record<string, unknown>>(props: FormaProps<T>) {
@@ -21,12 +20,12 @@ export function Forma<T extends Record<string, unknown> = Record<string, unknown
 
     let onInput: React.FormEventHandler<HTMLFormElement>;
     if (props.onInput) {
-        onInput = (e) => props.onInput(patchEvent<T>(e));
+        onInput = (e) => props.onInput(e, extractFormData<T>(e.currentTarget));
     }
 
     let onChange: React.FormEventHandler<HTMLFormElement>;
     if (props.onChange) {
-        onChange = (e) => props.onChange(patchEvent<T>(e));
+        onChange = (e) => props.onChange(e, extractFormData<T>(e.currentTarget));
     }
 
     let onSubmit: React.FormEventHandler<HTMLFormElement>;
@@ -38,7 +37,7 @@ export function Forma<T extends Record<string, unknown> = Record<string, unknown
             }
 
             if (props.onSubmit) {
-                props.onSubmit(patchEvent<T>(e));
+                props.onSubmit(e, extractFormData<T>(e.currentTarget));
             }
         };
     }
@@ -48,11 +47,4 @@ export function Forma<T extends Record<string, unknown> = Record<string, unknown
             {props.children}
         </form>
     );
-}
-
-function patchEvent<T extends Record<string, unknown>>(e: React.FormEvent<HTMLFormElement>): FormaEvent<T> {
-    const patchedEvent = e as FormaEvent<T>;
-    patchedEvent.data = extractFormData(e.currentTarget);
-
-    return patchedEvent;
 }

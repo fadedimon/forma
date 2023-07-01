@@ -1,14 +1,9 @@
 interface FormaListState {
     addedItems: string[];
     removedItems: string[];
-    markedAsRemovedItems: string[];
 }
 
-type FormaListAction =
-    | { type: 'add' }
-    | { type: 'remove'; payload: { id: string } }
-    | { type: 'mark-removed'; payload: { id: string } }
-    | { type: 'unmark-removed'; payload: { id: string } };
+type FormaListAction = { type: 'add' } | { type: 'remove'; payload: { id: string } };
 
 export function getReducer(name: string, initialListLength: number, allowEmpty: boolean) {
     return (prevState: FormaListState, action: FormaListAction) => {
@@ -36,18 +31,6 @@ export function getReducer(name: string, initialListLength: number, allowEmpty: 
                 };
             }
 
-            case 'mark-removed':
-                return {
-                    ...prevState,
-                    markedAsRemovedItems: [...prevState.markedAsRemovedItems, action.payload.id],
-                };
-
-            case 'unmark-removed':
-                return {
-                    ...prevState,
-                    markedAsRemovedItems: prevState.markedAsRemovedItems.filter((item) => item !== action.payload.id),
-                };
-
             default:
                 return prevState;
         }
@@ -63,7 +46,6 @@ export function getReducedInitialState(
     return {
         addedItems: initialListLength === 0 && !allowEmpty ? [getNewItemForList(name, [])] : [],
         removedItems: [],
-        markedAsRemovedItems: [],
     };
 }
 

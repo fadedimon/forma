@@ -24,7 +24,7 @@ const INPUTS: [string, string | number, HTMLProps<HTMLAttributes<HTMLInputElemen
 ];
 
 export const ElementsForm: React.FC<FormProps> = (props) => (
-    <Forma onSubmit={props.onSubmit}>
+    <Forma onSubmit={(_, data) => props.onSubmit(data)}>
         <fieldset name="inputs" className={styles.fieldSet}>
             <legend>Inputs</legend>
 

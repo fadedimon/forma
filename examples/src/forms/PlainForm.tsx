@@ -6,7 +6,7 @@ import * as styles from './Form.module.css';
 import { FormProps } from './Form.types';
 
 export const PlainForm: React.FC<FormProps> = (props) => (
-    <Forma onSubmit={props.onSubmit}>
+    <Forma onSubmit={(_, data) => props.onSubmit(data)}>
         <FormField title="First name" htmlFor="firstName">
             <div className={styles.formRow}>
                 <input

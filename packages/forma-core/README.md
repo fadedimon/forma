@@ -19,19 +19,20 @@ console.log(data) // { ... } — Object with form's content
 
 ## How form elements are treated
 
-| Code                        | Value      | Comment                                                                        |
-| --------------------------- | ---------- | ------------------------------------------------------------------------------ |
-| **Input elements**          |            | All input element's values are string, except `checkbox`, `number` and `range` |
-| `<input type="checkbox" />` | `boolean`  | -                                                                              |
-| `<input type="number" />`   | `number`   | -                                                                              |
-| `<input type="range" />`    | `number`   | -                                                                              |
-| `<input type="radio" />`    | `string`   | -                                                                              |
-| `<input type="*"  />`       | `string`   | -                                                                              |
-| **Select elements**         |
-| `<select />`                | `string`   | -                                                                              |
-| `<select multiple />`       | `string[]` | -                                                                              |
-| **Textarea elements**       |
-| `<textarea />`              | `string`   | -                                                                              |
+| Code                             | Value type | Comment                                 |
+| -------------------------------- | ---------- | --------------------------------------- |
+| **Input elements**               |            |                                         |
+| `<input type="checkbox" />`      | `boolean`  | -                                       |
+| `<input type="number" />`        | `number`   | -                                       |
+| `<input type="range" />`         | `number`   | -                                       |
+| `<input type="file" />`          | `FileList` | -                                       |
+| `<input type="file" multiple />` | `FileList` | -                                       |
+| `<input type="*" />`             | `string`   | Rest input types are treated as strings |
+| **Select elements**              |            |                                         |
+| `<select />`                     | `string`   | -                                       |
+| `<select multiple />`            | `string[]` | -                                       |
+| **Textarea elements**            |            |                                         |
+| `<textarea />`                   | `string`   | -                                       |
 
 ## Nesting
 
