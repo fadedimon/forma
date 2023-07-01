@@ -67,6 +67,14 @@ export function getElementData(elem: Element): { name: string; origName: string;
         };
     }
 
+    if (checkIsInputElement(elem) && elem.type === 'file') {
+        return {
+            name,
+            origName: name,
+            value: elem.files,
+        };
+    }
+
     if (checkIsInputElement(elem)) {
         if (checkIsListName(name)) {
             return {

@@ -46,6 +46,18 @@ export const ElementsForm: React.FC<FormProps> = (props) => (
                 </FormField>
             ))}
 
+            <FormField title="File" htmlFor="file">
+                <div className={styles.formRow}>
+                    <input id="file" type="file" name="file" />
+                </div>
+            </FormField>
+
+            <FormField title="File multiple" htmlFor="fileMultiple">
+                <div className={styles.formRow}>
+                    <input id="fileMultiple" type="file" name="fileMultiple" multiple />
+                </div>
+            </FormField>
+
             <FormField title="Checkbox" htmlFor="checkbox">
                 <div className={styles.formRow}>
                     <label>
