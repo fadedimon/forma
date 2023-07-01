@@ -1,1 +1,1 @@
-export type Value = string[] | string | number | boolean;
+export type Value = string[] | string | number | boolean | FileList;
