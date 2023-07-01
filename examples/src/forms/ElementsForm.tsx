@@ -48,13 +48,13 @@ export const ElementsForm: React.FC<FormProps> = (props) => (
 
             <FormField title="File" htmlFor="file">
                 <div className={styles.formRow}>
-                    <input id="file" type="file" name="file" />
+                    <input id="file" type="file" name="file" className={styles.input} />
                 </div>
             </FormField>
 
             <FormField title="File multiple" htmlFor="fileMultiple">
                 <div className={styles.formRow}>
-                    <input id="fileMultiple" type="file" name="fileMultiple" multiple />
+                    <input id="fileMultiple" type="file" name="fileMultiple" className={styles.input} multiple />
                 </div>
             </FormField>
 
